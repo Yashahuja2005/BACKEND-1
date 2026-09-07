@@ -3,6 +3,9 @@ const ImageKit = require("@imagekit/nodejs")
 const { toFile } = require("@imagekit/nodejs")
 const jwt = require("jsonwebtoken")
 const likeModel = require("../models/like.model")
+const saveModel = require("../models/save.model")
+const commentModel = require("../models/comment.model")
+const shareModel = require("../models/share.model")
 
 const imagekit = new ImageKit({
     privateKey: process.env['IMAGEKIT_PRIVATE_KEY'],
@@ -109,9 +112,72 @@ async function likePostController(req, res){
     })
 }
 
+
+async function unlikePostController(req, res) {
+    const postId = req.params.postId
+    const username = req.user.username
+
+    const isAlreadyLiked = await likeModel.findOne({
+        post: postId,
+        user: username
+    })
+
+    if(!isAlreadyLiked){
+        return res.status(400).json({
+            message: "You have not liked this post"
+        })
+    }
+
+    await likeModel.findOneAndDelete({ _id: isAlreadyLiked._id })
+
+    return res.status(200).json({
+        message: "Post unliked Successfully"
+    })
+
+}
+
+
+async function getFeedController(req, res) {
+
+    const user = req.user
+
+    const posts = await Promise.all((await postModel.find().sort({_id: -1}).populate("user").lean())
+        .map(async (post)=> {
+
+            const [isLiked, isSaved, isShared, likeCount, commentCount, shareCount] = await Promise.all([
+                likeModel.findOne({
+                user: user.username,
+                post: post._id
+                }),
+                saveModel.findOne({ user: user.username, post: post._id }),
+                shareModel.findOne({ user: user.username, post: post._id }),
+                likeModel.countDocuments({ post: post._id }),
+                commentModel.countDocuments({ post: post._id }),
+                shareModel.countDocuments({ post: post._id })
+            ])
+
+            post.isLiked = Boolean(isLiked)
+            post.isSaved = Boolean(isSaved)
+            post.isShared = Boolean(isShared)
+            post.likeCount = likeCount
+            post.commentCount = commentCount
+            post.shareCount = shareCount
+
+            return post
+        }))
+
+    res.status(200).json({
+        message: "Posts fetched successfully",
+        posts
+    })
+}
+
+
 module.exports = {
     createPostController,
     getPostController,
     getPostDetails,
-    likePostController
+    likePostController,
+    unlikePostController,
+    getFeedController
 }

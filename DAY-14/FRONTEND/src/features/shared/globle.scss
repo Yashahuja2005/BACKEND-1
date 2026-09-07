@@ -1,0 +1,12 @@
+@use "./button.scss";
+
+:root { --ink: #25231f; --muted: #80796d; --paper: #fffdf8; --canvas: #f5f1e9; --line: #ded6c9; --accent: #e86b45; --teal: #4b887c; font-family: Georgia, "Times New Roman", serif; color: var(--ink); background: var(--canvas); font-synthesis: none; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body, #root { min-height: 100%; width: 100%; }
+body { background: radial-gradient(circle at top left, #fff9ef 0, var(--canvas) 42%, #e7eee9 100%); transition: background .25s ease, color .25s ease; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+main { min-height: 100vh; }
+
+:root[data-theme="dark"] { --ink: #f6f1e8; --muted: #b3aa9d; --paper: #252a29; --canvas: #151918; --line: #3a4541; --accent: #f18b68; --teal: #8cc2b1; }
+:root[data-theme="dark"] body { background: radial-gradient(circle at top left, #27332f 0, #151918 50%, #101211 100%); }

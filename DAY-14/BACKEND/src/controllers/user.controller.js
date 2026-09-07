@@ -151,10 +151,23 @@ async function unfollowUserController(req, res){
     })
 }
 
+async function getConnectionsController(req, res) {
+    const username = req.user.username
+    const [followers, following] = await Promise.all([
+        followModel.find({ followee: username, status: "accepted" }).select("follower -_id").lean(),
+        followModel.find({ follower: username, status: "accepted" }).select("followee -_id").lean()
+    ])
+    res.status(200).json({
+        followers: followers.map((item) => item.follower),
+        following: following.map((item) => item.followee)
+    })
+}
+
 module.exports = {
     followUserController,
     getFollowRequestsController,
     acceptFollowRequestController,
     rejectFollowRequestController,
-    unfollowUserController
+    unfollowUserController,
+    getConnectionsController
 }

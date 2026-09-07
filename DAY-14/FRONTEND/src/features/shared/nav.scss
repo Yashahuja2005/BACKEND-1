@@ -1,0 +1,9 @@
+.nav-bar { position: sticky; z-index: 10; top: 0; width: 100%; margin: 0; padding: 12px 20px; background: color-mix(in srgb, var(--canvas) 92%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--line) 75%, transparent); backdrop-filter: blur(16px); }
+.nav-inner { max-width: 1180px; min-height: 42px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; border: 0; background: transparent; }
+.brand-mark { width: 32px; height: 32px; display: grid; place-items: center; background: #e86b45; color: #fff9ef; border-radius: 50%; font: 700 18px Georgia, serif; }
+.brand strong { font-size: 22px; letter-spacing: .02em; }.nav-note { color: var(--muted); font: 600 12px system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.nav-button { border: 1px solid var(--line); background: var(--paper); color: var(--ink); padding: 9px 15px; border-radius: 5px; font: 700 13px system-ui, sans-serif; }.nav-button.primary { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+.theme-toggle { width: 35px; height: 35px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: var(--paper); font: 19px/1 system-ui, sans-serif; }
+@media (max-width: 600px) { .nav-note { display: none; } .nav-bar { padding: 10px 14px; } }

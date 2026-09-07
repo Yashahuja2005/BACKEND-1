@@ -4,7 +4,8 @@ const {
     getFollowRequestsController,
     acceptFollowRequestController,
     rejectFollowRequestController,
-    unfollowUserController
+    unfollowUserController,
+    getConnectionsController
 } = require("../controllers/user.controller")
 const identifyUser = require("../middlewares/auth.middleware")
 
@@ -15,5 +16,6 @@ userRouter.get('/follow-requests', identifyUser, getFollowRequestsController)
 userRouter.post('/follow/accept/:username', identifyUser, acceptFollowRequestController)
 userRouter.post('/follow/reject/:username', identifyUser, rejectFollowRequestController)
 userRouter.post('/unfollow/:username', identifyUser, unfollowUserController)
+userRouter.get('/connections', identifyUser, getConnectionsController)
 
 module.exports = userRouter
