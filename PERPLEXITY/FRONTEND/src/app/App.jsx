@@ -6,11 +6,11 @@ import { useEffect } from "react"
 
 function App() {
 
-  const auth = useAuth()
+  const { handleGetMe } = useAuth()
 
   useEffect(() => {
-    auth.handleGetMe()
-  }, [auth])
+    handleGetMe()
+  }, [handleGetMe])
 
   return (
     <RouterProvider router={router} / >

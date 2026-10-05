@@ -16,6 +16,10 @@ const messageSchema = new mongoose.Schema(
             enum: ['user', 'ai'],
             required: true
         },
+        attachment: {
+            name: { type: String },
+            text: { type: String, maxlength: 12000 }
+        },
     },
     {
         timestamps: true

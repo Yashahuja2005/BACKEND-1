@@ -37,14 +37,14 @@ export async function registerController(req, res) {
     try {
         await sendEmail({
             to: email,
-            subject: "Welcome to Perplexity",
+                subject: "Welcome to Auralis",
             html: `<p>Hi ${username},</p>
-                    <p>Thank you for registering at <strong>Perplexity</strong>. We're excited to have you on board!</p>
+                    <p>Thank you for registering at <strong>Auralis</strong>. We're excited to have you on board!</p>
                     <p>Please verify your email address by clicking the link below:</p>
                 <a href="http://localhost:3000/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>
                     <p>Email verification will be available soon.</p>
                     <p>If you did not create an account, please ignore this email.</p>
-                    <p>Best regards,<br>The Perplexity Team</p>`
+                    <p>Best regards,<br>The Auralis Team</p>`
         });
     } catch (error) {
         console.error("Welcome email could not be sent", error);
