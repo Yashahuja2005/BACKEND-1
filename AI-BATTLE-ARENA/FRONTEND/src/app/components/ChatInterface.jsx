@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import UserMessage from './UserMessage';
 import ArenaResponse from './ArenaResponse';
+import axios from 'axios';
 
 const MOCK_RESPONSE = {
     solution_1: "Here is a clean Python solution using modern syntax:\n\n```python\ndef fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n```\n\nThis approach has O(n) time complexity and O(1) space.",
@@ -26,15 +27,24 @@ export default function ChatInterface() {
         scrollToBottom();
     }, [messages]);
 
-    const handleSend = (e) => {
+    const handleSend = async (e) => {
         e.preventDefault();
         if (!inputValue.trim()) return;
+
+        const response = await axios.post("http://localhost:3000/invoke", {
+            input: inputValue
+        })
+
+        const data = response.data
+
+        console.log(data);
+
 
         const newMessage = {
             id: Date.now(),
             problem: inputValue,
             // simulate the delay or instantly add dummy response
-            ...MOCK_RESPONSE
+            ...data.result
         };
 
         setMessages([...messages, newMessage]);
