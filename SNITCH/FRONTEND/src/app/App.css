@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #0c0d0e;
+    color: #e3e2e3;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.custom-aura {
+  background: radial-gradient(circle at 50% 20%, rgba(245, 158, 11, 0.09) 0%, rgba(20, 22, 25, 0.6) 55%, rgba(12, 13, 14, 1) 100%);
+}
+
+.amber-focus-glow {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.amber-focus-glow:focus-within {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 1px #f59e0b, 0 0 20px rgba(245, 158, 11, 0.16);
+}
+
+.btn-gold-glow {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-gold-glow:hover {
+  box-shadow: 0 4px 25px rgba(245, 158, 11, 0.38);
+}
